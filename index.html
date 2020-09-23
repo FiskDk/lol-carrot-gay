@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>discord-spam-mobile</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+    <h1>Note: Your Discord account will most likely be banned if you use this.</h1>
+    <div></div><textarea id="tokensInput" placeholder="Tokens"></textarea><input type="text" id="userInput" placeholder="UserID"><input type="text" id="msgInput" placeholder="Message"><input type="number" id="limitInput" placeholder="Limit"><button class="btn btn-primary"
+        id="launchAttack" type="button">Start</button>
+    <div></div>
+    <p>Guide:<br>Go get some discord tokens - or use your own - they have to either be friends - or be in a server with the target user for this to work<br>Paste the targets UserID in the UserID box<br><br>I wouldn't set a limit higher than 50 just to be
+        safe<br><strong>Risks :</strong><br>IP-Ban(?)<br>Getting your account de-verified<br>Account Ban<br>Timeouts(?)<br><br><strong>Note :</strong><br>This was very quickly put together, bugs and errors are to be expected. - more features comming soon
+        &lt;3<br>~Jayy (aka f1sk)</p><a href="http://jayy.xyz">http://jayy.xyz</a>
+    <div></div><a href="http://dev.f1sk.xyz">http://dev.f1sk.xyz</a><script>
+    
+    document.getElementById("launchAttack").addEventListener("click", function() {
+        let userid = document.getElementById("userInput").value
+        let message = document.getElementById("msgInput").value
+        let limit = document.getElementById("limitInput").value
+        var tokensArray = document.getElementById("tokensInput").value.split('\r\n')
+        console.log(tokensArray)
+        tokensArray.forEach(function(token){
+            startBot(token, userid, message, limit);
+        })
+    })
+
+    function startBot(t, u, m, l) {
+        console.log("launching bot with args : " + t + " " + u + " " + m + " " + l)
+        times (l) (() => sendMessage(t, u, m))
+    }
+    
+    const times = x => f => {
+  if (x > 0) {
+    f()
+    times (x - 1) (f)
+  }
+}
+
+    
+    function sendMessage(token, userid, message) {
+    var url = "https://canary.discordapp.com/api/v6/users/@me/channels";
+
+var xhr = new XMLHttpRequest();
+xhr.open("POST", url);
+
+xhr.setRequestHeader("Authorization", token);
+xhr.setRequestHeader("Content-Type", "application/json");
+xhr.setRequestHeader("User-Agent", "'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) discord/0.0.305 Chrome/69.0.3497.128 Electron/4.0.8 Safari/537.36");
+
+xhr.onreadystatechange = function () {
+   if (xhr.readyState === 4) {
+      console.log(xhr.status);
+      console.log(xhr.responseText);
+      let responseArray = JSON.parse(xhr.responseText)
+      var url2 = "https://canary.discordapp.com/api/v6/channels/" + responseArray.id + "/messages";
+
+var xhr2 = new XMLHttpRequest();
+xhr2.open("POST", url2);
+
+xhr2.setRequestHeader("Authorization", token);
+xhr2.setRequestHeader("Content-Type", "application/json");
+xhr2.setRequestHeader("User-Agent", "'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) discord/0.0.305 Chrome/69.0.3497.128 Electron/4.0.8 Safari/537.36");
+
+xhr2.onreadystatechange = function () {
+   if (xhr2.readyState === 4) {
+      console.log(xhr2.status);
+      console.log(xhr2.responseText);
+   }};
+
+var data2 = '{"content" : "' + message + '", "tts" : false}';
+
+xhr2.send(data2);
+
+   }};
+
+var data = '{"recipient_id" : ' + userid + '}';
+
+xhr.send(data);
+}
+//USSAGE EXAMPLE:
+//sendMessage("TOKEN", "USERID", "MESSAGE");
+//NOTE: All inputs must be in quotes.
+//NOTE: UserID and Token must either share a server, or be friends.
+</script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

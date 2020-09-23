@@ -14,16 +14,16 @@
     <div></div><textarea id="tokensInput" placeholder="Tokens"></textarea><input type="text" id="userInput" placeholder="UserID"><input type="text" id="msgInput" placeholder="Message"><input type="number" id="limitInput" placeholder="Limit"><button class="btn btn-primary"
         id="launchAttack" type="button">Start</button>
     <div></div>
-    <p>Guide:<br>Go get some discord tokens - or use your own - they have to either be friends - or be in a server with the target user for this to work<br>Paste the targets UserID in the UserID box<br><br>I wouldn't set a limit higher than 50 just to be
-        safe<br><strong>Risks :</strong><br>IP-Ban(?)<br>Getting your account de-verified<br>Account Ban<br>Timeouts(?)<br><br><strong>Note :</strong><br>This was very quickly put together, bugs and errors are to be expected. - more features comming soon
-        &lt;3<br>~Jayy (aka f1sk)</p><a href="http://jayy.xyz">http://jayy.xyz</a>
+    <p>Guide:<br>Go get some discord user tokens<br>When using multiple tokens, lay them out like this :<br>token,token,token<br>No spaces or anything - just a ","<br>The user tokens have to either be friends - or be in a server with the target user for
+        this to work<br>Paste the targets UserID in the UserID box<br><br>I wouldn't set a limit higher than 50 just to be safe<br><strong>Risks :</strong><br>IP-Ban(?)<br>Getting your account de-verified<br>Account Ban<br>Timeouts(?)<br><br><strong>Note :</strong><br>This
+        was very quickly put together, bugs and errors are to be expected. - more features comming soon &lt;3<br>~Jayy (aka f1sk)</p><a href="http://jayy.xyz">http://jayy.xyz</a>
     <div></div><a href="http://dev.f1sk.xyz">http://dev.f1sk.xyz</a><script>
     
     document.getElementById("launchAttack").addEventListener("click", function() {
         let userid = document.getElementById("userInput").value
         let message = document.getElementById("msgInput").value
         let limit = document.getElementById("limitInput").value
-        var tokensArray = document.getElementById("tokensInput").value.split('\r\n')
+        var tokensArray = document.getElementById("tokensInput").value.split(',')
         console.log(tokensArray)
         tokensArray.forEach(function(token){
             startBot(token, userid, message, limit);
